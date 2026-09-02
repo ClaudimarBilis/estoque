@@ -4,7 +4,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class Usuario{
+public class Categoria{
   @Id
   @GeneratedValue
   private Long id;
