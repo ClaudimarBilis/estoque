@@ -41,7 +41,8 @@ public class ProdutoService {
         Produto buscarId = produtoRepository.buscarPorId(produto.getId());
         if (buscarId == null) {
             throw new RuntimeException("Produto não encontrado.");
-        } else {
+        } 
+        else {
             produtoRepository.atualizar(produto);
         }
     }
