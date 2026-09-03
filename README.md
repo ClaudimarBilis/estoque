@@ -2,7 +2,7 @@
 
 > Sistema de Controle de Estoque desenvolvido como projeto de estudo, aplicando Java para Backend com arquitetura em camadas.
 
-![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk&logoColor=white)
+![Java](https://img.shields.io/badge/Java-25-orange?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen?style=for-the-badge&logo=springboot&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?style=for-the-badge&logo=mysql&logoColor=white)
 ![Maven](https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
@@ -73,9 +73,9 @@ br.com.estudo.estoque
 - [x] Conexão com banco de dados MySQL
 - [x] Entidade `Produto` (model)
 - [x] Camada `repository` de produtos
-- [ ] Camada `service` de produtos
-- [ ] Camada `controller` (API REST) de produtos
-- [ ] Categorias e Fornecedores
+- [X] Camada `service` de produtos
+- [X] Camada `controller` (API REST) de produtos
+- [X] Categorias e Fornecedores
 - [ ] Movimentações (entrada e saída) com atualização automática de saldo
 - [ ] Autenticação simples (usuário único)
 - [ ] Relatórios em PDF
