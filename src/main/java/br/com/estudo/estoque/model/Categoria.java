@@ -21,10 +21,10 @@ public class Categoria{
     this.nome = nome;
   }
 
-  public Usuario(){
+  public Categoria(){
   }
 
-  public Usuario(String nome){
+  public Categoria(String nome){
     this.nome = nome;
   }
 }
