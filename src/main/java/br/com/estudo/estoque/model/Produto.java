@@ -1,7 +1,5 @@
 package br.com.estudo.estoque.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Produto {
@@ -13,6 +11,9 @@ public class Produto {
     private Integer quantidade;
     private Integer estoqueMinimo;
     private String localizacao;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -54,6 +55,13 @@ public class Produto {
     }
     public void setLocalizacao(String localizacao){
         this.localizacao = localizacao;
+    }
+
+    public Categoria getCategoria(){
+        return categoria;
+    }
+    public void setCategoria(Categoria categoria){
+        this.categoria = categoria;
     }
 
     public Produto(){
