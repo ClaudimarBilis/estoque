@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class Produto {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -14,6 +15,9 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
 
     public Long getId() {
         return id;
@@ -62,6 +66,13 @@ public class Produto {
     }
     public void setCategoria(Categoria categoria){
         this.categoria = categoria;
+    }
+
+    public Fornecedor getFornecedor(){
+        return fornecedor;
+    }
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public Produto(){

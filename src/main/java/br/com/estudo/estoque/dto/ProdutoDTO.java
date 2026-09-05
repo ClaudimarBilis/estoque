@@ -7,6 +7,7 @@ public class ProdutoDTO {
     private Integer estoqueMinimo;
     private String localizacao;
     private Long categoriaId;
+    private Long fornecedorId;
 
     public String getCodigo(){
         return codigo;
@@ -48,5 +49,12 @@ public class ProdutoDTO {
     }
     public void setCategoriaId(Long categoriaId){
         this.categoriaId = categoriaId;
+    }
+
+    public Long getFornecedorId(){
+        return fornecedorId;
+    }
+    public void setFornecedorId(Long fornecedorId){
+        this.fornecedorId = fornecedorId;
     }
 }
