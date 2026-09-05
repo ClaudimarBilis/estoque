@@ -1,5 +1,6 @@
 package br.com.estudo.estoque.controller;
 
+import br.com.estudo.estoque.dto.ProdutoDTO;
 import br.com.estudo.estoque.model.Produto;
 import br.com.estudo.estoque.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @PostMapping
-    public Produto cadastrar(@RequestBody Produto produto){
-        return produtoService.cadastrar(produto);
+    public Produto cadastrar(@RequestBody ProdutoDTO dto){
+        return produtoService.cadastrar(dto);
     }
 
     @GetMapping("/{id}")
@@ -30,9 +31,8 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public void atualizar(@PathVariable Long id, @RequestBody Produto produto){
-        produto.setId(id);
-        produtoService.atualizar(produto);
+    public void atualizar(@PathVariable Long id, @RequestBody ProdutoDTO dto){
+        produtoService.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")

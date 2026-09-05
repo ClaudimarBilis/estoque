@@ -1,6 +1,9 @@
 package br.com.estudo.estoque.service;
 
+import br.com.estudo.estoque.dto.ProdutoDTO;
+import br.com.estudo.estoque.model.Categoria;
 import br.com.estudo.estoque.model.Produto;
+import br.com.estudo.estoque.repository.CategoriaRepository;
 import br.com.estudo.estoque.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +16,32 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public Produto cadastrar(Produto produto) {
-        if (produtoRepository.buscarPorCodigo(produto.getCodigo()) != null) {
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    public Produto cadastrar(ProdutoDTO dto) {
+
+        Categoria categoria = categoriaRepository.buscarPorId(dto.getCategoriaId());
+
+        if(categoria == null){
+            throw new RuntimeException("Categoria não encontrada.");
+        }
+
+        if(produtoRepository.buscarPorCodigo(dto.getCodigo()) != null){
             throw new RuntimeException("Já existe um produto com esse código.");
         }
-        else {
-            produtoRepository.salvar(produto);
-        }
+
+        Produto produto = new Produto();
+        produto.setCodigo(dto.getCodigo());
+        produto.setNome(dto.getNome());
+        produto.setQuantidade(dto.getQuantidade());
+        produto.setEstoqueMinimo(dto.getEstoqueMinimo());
+        produto.setLocalizacao(dto.getLocalizacao());
+
+        produto.setCategoria(categoria);
+
+        produtoRepository.salvar(produto);
+
         return produto;
     }
 
@@ -37,14 +59,28 @@ public class ProdutoService {
         return produtoRepository.listarTodos();
     }
 
-    public void atualizar(Produto produto) {
-        Produto buscarId = produtoRepository.buscarPorId(produto.getId());
-        if (buscarId == null) {
+    public void atualizar(Long id, ProdutoDTO dto) {
+
+        Produto produto = produtoRepository.buscarPorId(id);
+        if (produto == null) {
             throw new RuntimeException("Produto não encontrado.");
-        } 
-        else {
-            produtoRepository.atualizar(produto);
         }
+
+        Categoria categoria = categoriaRepository.buscarPorId(dto.getCategoriaId());
+        if(categoria == null){
+            throw new RuntimeException("Categoria não encontrada.");
+        }
+
+        produto.setCodigo(dto.getCodigo());
+        produto.setNome(dto.getNome());
+        produto.setQuantidade(dto.getQuantidade());
+        produto.setEstoqueMinimo(dto.getEstoqueMinimo());
+        produto.setLocalizacao(dto.getLocalizacao());
+
+        produto.setCategoria(categoria);
+
+        produtoRepository.atualizar(produto);
+
     }
 
     public void deletar(Long id){
