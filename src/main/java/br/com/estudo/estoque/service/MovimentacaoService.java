@@ -10,6 +10,7 @@ import br.com.estudo.estoque.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -20,15 +21,33 @@ public class MovimentacaoService {
     private ProdutoRepository produtoRepository;
 
     public Movimentacao registrar(MovimentacaoDTO dto) {
-        Produto buscaPorId = produtoRepository.buscarPorId(dto.getProdutoId());
-        if(buscaPorId == null){
+        Produto produtoBuscaPorId = produtoRepository.buscarPorId(dto.getProdutoId());
+        if(produtoBuscaPorId == null){
             throw new RuntimeException("Produto não encontrado.");
         }
-        if(dto.getTipo() == TipoMovimentacao.ENTRADA){
-
-        }else{
-            Produto quantidade =
+        else if(dto.getQuantidade() <= 0) {
+            throw new RuntimeException("Quantidade inválida.");
         }
+        else if(dto.getTipo() == TipoMovimentacao.ENTRADA && dto.getQuantidade() > 0){
+            produtoBuscaPorId.setQuantidade(produtoBuscaPorId.getQuantidade() + dto.getQuantidade());
+        }
+        else if(dto.getQuantidade() > produtoBuscaPorId.getQuantidade()) {
+            throw new RuntimeException("Estoque insuficiente.");
+        }
+        else {
+            produtoBuscaPorId.setQuantidade(produtoBuscaPorId.getQuantidade() - dto.getQuantidade());
+        }
+        produtoRepository.atualizar(produtoBuscaPorId);
+
+        Movimentacao movimentacao = new Movimentacao();
+        movimentacao.setProduto(produtoBuscaPorId);
+        movimentacao.setTipo(dto.getTipo());
+        movimentacao.setQuantidade(dto.getQuantidade());
+        movimentacao.setData(LocalDateTime.now());
+        movimentacao.setObservacao(dto.getObservacao());
+        movimentacaoRepository.salvar(movimentacao);
+
+        return movimentacao;
     }
 
     public Movimentacao buscarPorId(Long id) {
