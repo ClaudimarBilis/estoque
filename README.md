@@ -76,8 +76,8 @@ br.com.estudo.estoque
 - [X] Camada `service` de produtos
 - [X] Camada `controller` (API REST) de produtos
 - [X] Categorias e Fornecedores
-- [ ] Movimentações (entrada e saída) com atualização automática de saldo
-- [ ] Autenticação simples (usuário único)
+- [X] Movimentações (entrada e saída) com atualização automática de saldo
+- [ ] Autenticação simples (usuário único) — em andamento
 - [ ] Relatórios em PDF
 - [ ] Alertas de estoque mínimo
 
