@@ -1,6 +1,8 @@
 package br.com.estudo.estoque.service;
 
 import br.com.estudo.estoque.dto.ProdutoDTO;
+import br.com.estudo.estoque.exception.RecursoNaoEncontradoException;
+import br.com.estudo.estoque.exception.RegraDeNegocioException;
 import br.com.estudo.estoque.model.Categoria;
 import br.com.estudo.estoque.model.Fornecedor;
 import br.com.estudo.estoque.model.Produto;
@@ -28,16 +30,16 @@ public class ProdutoService {
 
         Categoria categoria = categoriaRepository.buscarPorId(dto.getCategoriaId());
         if(categoria == null){
-            throw new RuntimeException("Categoria não encontrada.");
+            throw new RecursoNaoEncontradoException("Categoria não encontrada.");
         }
 
         Fornecedor fornecedor = fornecedorRepository.buscarPorId(dto.getFornecedorId());
         if(fornecedor == null){
-            throw new RuntimeException("Fornecedor não encontrado.");
+            throw new RecursoNaoEncontradoException("Fornecedor não encontrado.");
         }
 
         if(produtoRepository.buscarPorCodigo(dto.getCodigo()) != null){
-            throw new RuntimeException("Já existe um produto com esse código.");
+            throw new RegraDeNegocioException("Já existe um produto com esse código.");
         }
 
         Produto produto = new Produto();
@@ -57,7 +59,7 @@ public class ProdutoService {
     public Produto buscarPorId(Long id){
         Produto resultado = produtoRepository.buscarPorId(id);
         if (resultado == null){
-            throw new RuntimeException("Produto não encontrado.");
+            throw new RecursoNaoEncontradoException("Produto não encontrado.");
         }
         else {
             return resultado;
@@ -72,17 +74,17 @@ public class ProdutoService {
 
         Produto produto = produtoRepository.buscarPorId(id);
         if (produto == null) {
-            throw new RuntimeException("Produto não encontrado.");
+            throw new RecursoNaoEncontradoException("Produto não encontrado.");
         }
 
         Categoria categoria = categoriaRepository.buscarPorId(dto.getCategoriaId());
         if(categoria == null){
-            throw new RuntimeException("Categoria não encontrada.");
+            throw new RecursoNaoEncontradoException("Categoria não encontrada.");
         }
 
         Fornecedor fornecedor = fornecedorRepository.buscarPorId(dto.getFornecedorId());
         if(fornecedor == null){
-            throw new RuntimeException("Fornecedor não encontrado.");
+            throw new RecursoNaoEncontradoException("Fornecedor não encontrado.");
         }
 
         produto.setCodigo(dto.getCodigo());
@@ -100,10 +102,14 @@ public class ProdutoService {
     public void deletar(Long id){
         Produto produto = produtoRepository.buscarPorId(id);
         if(produto == null){
-            throw new RuntimeException("Produto não encontrado.");
+            throw new RecursoNaoEncontradoException("Produto não encontrado.");
         }
         else{
             produtoRepository.deletar(id);
         }
+    }
+
+    public List<Produto> listarProdutosEmAlerta(){
+        return produtoRepository.buscarProdutosEmAlerta();
     }
 }

@@ -45,4 +45,8 @@ public class ProdutoRepository {
 
         return resultado.isEmpty() ? null : resultado.get(0);
     }
+
+    public List<Produto> buscarProdutosEmAlerta(){
+        return entityManager.createQuery("SELECT p FROM Produto p WHERE p.quantidade <= p.estoqueMinimo",  Produto.class).getResultList();
+    }
 }

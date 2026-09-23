@@ -2,6 +2,8 @@ package br.com.estudo.estoque.service;
 
 
 import br.com.estudo.estoque.dto.MovimentacaoDTO;
+import br.com.estudo.estoque.exception.RecursoNaoEncontradoException;
+import br.com.estudo.estoque.exception.RegraDeNegocioException;
 import br.com.estudo.estoque.model.Movimentacao;
 import br.com.estudo.estoque.model.Produto;
 import br.com.estudo.estoque.model.TipoMovimentacao;
@@ -23,16 +25,16 @@ public class MovimentacaoService {
     public Movimentacao registrar(MovimentacaoDTO dto) {
         Produto produtoBuscaPorId = produtoRepository.buscarPorId(dto.getProdutoId());
         if(produtoBuscaPorId == null){
-            throw new RuntimeException("Produto não encontrado.");
+            throw new RecursoNaoEncontradoException("Produto não encontrado.");
         }
         else if(dto.getQuantidade() <= 0) {
-            throw new RuntimeException("Quantidade inválida.");
+            throw new RegraDeNegocioException("Quantidade inválida.");
         }
         else if(dto.getTipo() == TipoMovimentacao.ENTRADA && dto.getQuantidade() > 0){
             produtoBuscaPorId.setQuantidade(produtoBuscaPorId.getQuantidade() + dto.getQuantidade());
         }
         else if(dto.getQuantidade() > produtoBuscaPorId.getQuantidade()) {
-            throw new RuntimeException("Estoque insuficiente.");
+            throw new RegraDeNegocioException("Estoque insuficiente.");
         }
         else {
             produtoBuscaPorId.setQuantidade(produtoBuscaPorId.getQuantidade() - dto.getQuantidade());
@@ -53,7 +55,7 @@ public class MovimentacaoService {
     public Movimentacao buscarPorId(Long id) {
         Movimentacao resultado = movimentacaoRepository.buscarPorId(id);
         if ( resultado == null) {
-            throw new RuntimeException("Id não encontrado.");
+            throw new RecursoNaoEncontradoException("Id não encontrado.");
         } else {
             return resultado;
         }

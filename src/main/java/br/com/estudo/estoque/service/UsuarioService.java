@@ -1,5 +1,6 @@
 package br.com.estudo.estoque.service;
 
+import br.com.estudo.estoque.exception.RegraDeNegocioException;
 import br.com.estudo.estoque.model.Usuario;
 import br.com.estudo.estoque.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UsuarioService {
         Usuario nomeUsuario = usuarioRepository.buscarPorNomeUsuario(usuario.getNomeUsuario());
         String senhaEmTextoPuro = usuario.getSenha();
         if(nomeUsuario != null) {
-            throw new RuntimeException("Usuário já cadastrado");
+            throw new RegraDeNegocioException("Usuário já cadastrado");
         }
         String senhaEnconded = passwordEncoder.encode(senhaEmTextoPuro);
         usuario.setSenha(senhaEnconded);

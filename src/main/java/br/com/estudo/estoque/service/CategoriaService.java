@@ -1,5 +1,7 @@
 package br.com.estudo.estoque.service;
 
+import br.com.estudo.estoque.exception.RecursoNaoEncontradoException;
+import br.com.estudo.estoque.exception.RegraDeNegocioException;
 import br.com.estudo.estoque.model.Categoria;
 import br.com.estudo.estoque.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class CategoriaService {
 
     public Categoria cadastrar(Categoria categoria) {
         if (categoriaRepository.buscarPorNome(categoria.getNome()) != null) {
-            throw new RuntimeException("Essa categoria já existe.");
+            throw new RegraDeNegocioException("Essa categoria já existe.");
         } else {
             categoriaRepository.salvar(categoria);
         }
@@ -25,7 +27,7 @@ public class CategoriaService {
     public Categoria buscarPorId(Long id){
         Categoria resultado = categoriaRepository.buscarPorId(id);
         if(resultado == null){
-            throw new RuntimeException("Categoria não encontrada.");
+            throw new RecursoNaoEncontradoException("Categoria não encontrada.");
         }
         else{
             return resultado;
@@ -39,7 +41,7 @@ public class CategoriaService {
     public void atualizar(Categoria categoria){
         Categoria buscarId = categoriaRepository.buscarPorId(categoria.getId());
         if(buscarId == null){
-            throw new RuntimeException("Categoria não encontrada.");
+            throw new RecursoNaoEncontradoException("Categoria não encontrada.");
         }
         else{
             categoriaRepository.atualizar(categoria);
@@ -49,7 +51,7 @@ public class CategoriaService {
     public void deletar(Long id){
         Categoria buscarId = categoriaRepository.buscarPorId(id);
         if(buscarId == null){
-            throw new RuntimeException("Categoria não encontrada.");
+            throw new RecursoNaoEncontradoException("Categoria não encontrada.");
         }
         else{
             categoriaRepository.deletar(id);

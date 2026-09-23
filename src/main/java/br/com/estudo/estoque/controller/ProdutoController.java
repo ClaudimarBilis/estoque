@@ -39,4 +39,9 @@ public class ProdutoController {
     public void deletar(@PathVariable Long id) {
         produtoService.deletar(id);
     }
+
+    @GetMapping("/alertas")
+    public List<Produto> listarProdutosEmAlerta(){
+        return produtoService.listarProdutosEmAlerta();
+    }
 }

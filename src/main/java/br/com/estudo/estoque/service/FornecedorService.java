@@ -1,5 +1,7 @@
 package br.com.estudo.estoque.service;
 
+import br.com.estudo.estoque.exception.RecursoNaoEncontradoException;
+import br.com.estudo.estoque.exception.RegraDeNegocioException;
 import br.com.estudo.estoque.model.Fornecedor;
 import br.com.estudo.estoque.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ public class FornecedorService {
     public Fornecedor cadastrar(Fornecedor fornecedor){
         Fornecedor buscaNome = fornecedorRepository.buscarPorNome(fornecedor.getNome());
         if(buscaNome != null){
-            throw new RuntimeException("Esse fornecedor já existe.");
+            throw new RegraDeNegocioException("Esse fornecedor já existe.");
         }
         else{
             fornecedorRepository.salvar(fornecedor);
@@ -27,7 +29,7 @@ public class FornecedorService {
     public Fornecedor buscarPorId(Long id){
         Fornecedor buscaId = fornecedorRepository.buscarPorId(id);
         if(buscaId == null){
-            throw new RuntimeException("Esse fornecedor não existe.");
+            throw new RecursoNaoEncontradoException("Esse fornecedor não existe.");
         }
         else{
             return buscaId;
@@ -41,7 +43,7 @@ public class FornecedorService {
     public void atualizar (Fornecedor fornecedor){
         Fornecedor buscarId = fornecedorRepository.buscarPorId(fornecedor.getId());
         if(buscarId == null){
-            throw new RuntimeException("Esse fornecedor não existe.");
+            throw new RecursoNaoEncontradoException("Esse fornecedor não existe.");
         }
         else{
             fornecedorRepository.atualizar(fornecedor);
@@ -51,7 +53,7 @@ public class FornecedorService {
     public void deletar(Long id){
         Fornecedor buscarId = fornecedorRepository.buscarPorId(id);
         if(buscarId == null){
-            throw new RuntimeException("Esse fornecedor não existe.");
+            throw new RecursoNaoEncontradoException("Esse fornecedor não existe.");
         }
         else{
             fornecedorRepository.deletar(id);
