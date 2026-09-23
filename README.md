@@ -77,9 +77,8 @@ br.com.estudo.estoque
 - [X] Camada `controller` (API REST) de produtos
 - [X] Categorias e Fornecedores
 - [X] Movimentações (entrada e saída) com atualização automática de saldo
-- [ ] Autenticação simples (usuário único) — em andamento
-- [ ] Relatórios em PDF
-- [ ] Alertas de estoque mínimo
+- [X] Autenticação simples (usuário único) — em andamento
+- [X] Alertas de estoque mínimo
 
 ## Como executar o projeto
 
