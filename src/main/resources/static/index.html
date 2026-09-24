@@ -9,30 +9,28 @@
     <link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="wrapper">
-        <form action="">
-            <h1>Login</h1>
-            <div class="input-box">
-                <input type="text" id="username" required>
-                <label>Usuário</label>
-                <i class="bx bx-user"></i>
-            </div>
-            <div class="input-box">
-                <input type="password"id="password" required>
-                <label>Senha</label>
-                <i class="bx bx-lock"></i>
-            </div>
-             <div class="remember-forgot">
-                <label>
-                    <input type="checkbox" id="remember-me"> Lembrar-me
-                </label>
-                <a href="#">Esqueceu a senha?</a>
-            </div>
-            <button type="submit" class="btn" id="login-btn">Entrar</button>
-            <div class="register-link">
-                <p> ou <a href="#">Registre-se</a></p>
-            </div>
-        </form>
-    </div>
+    <form class="wrapper" id="formLogin" action="">
+        <h1>Login</h1>
+        <div class="input-box">
+            <input type="text" id="username" required>
+            <label for="username">Usuário</label>
+            <i class="bx bx-user"></i>
+        </div>
+        <div class="input-box">
+            <input type="password" id="password" required>
+            <label for="password">Senha</label>
+            <i class="bx bx-lock"></i>
+        </div>
+            <div class="remember-forgot">
+            <label>
+                <input type="checkbox" id="remember-me"> Lembrar-me
+            </label>
+            <a href="#">Esqueceu a senha?</a>
+        </div>
+        <button type="submit" class="btn" id="login-btn">Entrar</button>
+        <div class="register-link">
+            <p> ou <a href="#">Registre-se</a></p>
+        </div>
+    </form>
 </body>
 </html>

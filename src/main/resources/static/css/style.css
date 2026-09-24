@@ -12,7 +12,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 min-height: 100vh;
-background: url('/static/img/login-bg.png') no-repeat;
+background: url("../img/login-bg.png") no-repeat;
 background-size: cover;
 background-position: center;
 }
@@ -67,7 +67,6 @@ background-position: center;
 .input-box input:focus~label,
 .input-box input:valid~label {
     top: -10px;
-    color: #fff;
 }
 
 .input-box i {
